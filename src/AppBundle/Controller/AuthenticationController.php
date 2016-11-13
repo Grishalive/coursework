@@ -53,4 +53,15 @@ class AuthenticationController extends Controller
             'error'         => $error,
         ));
     }
+
+    /**
+     * @Route("/logout", name="logout")
+     */
+    public function logoutAction(Request $request)
+    {
+        $this->get('security.token_storage')->setToken(null);
+        $request->getSession()->invalidate();
+        return $this->redirectToRoute('homepage');
+    }
+
 }
