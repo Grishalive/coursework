@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 class SecurityController extends Controller
 {
     /**
-     * @Route("/register", name="registration")
+     * @Route("/register", name="register")
      */
     public function registerAction(Request $request)
     {
@@ -82,6 +82,30 @@ class SecurityController extends Controller
     {
         $repository = $this->getDoctrine()->getRepository('AppBundle:User');
         $user = $repository->loadUserByUsername('g@mail.ru');
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Hello Email')
+            ->setFrom('send@example.com')
+            ->setTo('grisha.live.forever@gmail.com')
+            ->setBody(
+                $this->renderView(
+                // app/Resources/views/Emails/registration.html.twig
+                    'email/register.html.twig',
+                    array('name' => $request)
+                ),
+                'text/html'
+            )
+            /*
+             * If you also want to include a plaintext version of the message
+            ->addPart(
+                $this->renderView(
+                    'Emails/registration.txt.twig',
+                    array('name' => $name)
+                ),
+                'text/plain'
+            )
+            */
+        ;
+        $this->get('mailer')->send($message);
         return $this->render('security/change_password.html.twig', ['email'=>$user->getEmail()]);
     }
 }

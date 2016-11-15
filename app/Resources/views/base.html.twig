@@ -11,6 +11,8 @@
         {#{% block javascripts %}{% endblock %}#}
     {#</body>#}
 {#</html>#}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,12 +33,37 @@
     <![endif]-->
 </head>
 <body>
-{% block body %}{% endblock %}
-<h1>Hello, world!</h1>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="{{ asset('bundles/js/bootstrap.js') }}"></script>
-{% block javascripts %}{% endblock %}
+
+    <div class="container">
+        <div class="row">
+            <div class="navbar navbar-default">
+                <div class="container">
+                   <div class="navbar-header">
+                       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#responsive-menu">
+                           <span class="sr-only">Открыть меню</span>
+                           <span class="icon-bar"></span>
+                           <span class="icon-bar"></span>
+                           <span class="icon-bar"></span>
+                       </button>
+                   </div>
+                    <div class="collapse navbar-collapse" id="responsive-menu">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="{{ path('homepage') }}">Home</a></li>
+                            <li><a href="{{ path('login') }}">Login</a></li>
+                            <li><a href="{{ path('register') }}">Registration</a></li>
+                        </ul>
+                    </div>
+                    {#{{ knp_menu_render('main') }}#}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% block body %}{% endblock %}
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{{ asset('bundles/js/bootstrap.js') }}"></script>
+    {% block javascripts %}{% endblock %}
 </body>
 </html>
