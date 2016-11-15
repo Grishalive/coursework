@@ -1,16 +1,19 @@
 <?php
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Login;
+use AppBundle\Form\LoginType;
 use AppBundle\Form\UserType;
 use AppBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
-class AuthenticationController extends Controller
+class SecurityController extends Controller
 {
     /**
-     * @Route("/register", name="user_registration")
+     * @Route("/register", name="registration")
      */
     public function registerAction(Request $request)
     {
@@ -64,4 +67,21 @@ class AuthenticationController extends Controller
         return $this->redirectToRoute('homepage');
     }
 
+    /**
+     * @Route("/admin/lol")
+     */
+    public function reAction()
+    {
+        return new Response("No no");
+    }
+
+    /**
+     * @Route("/login/change_password", name="change_password")
+     */
+    public function changePasswordAction(Request $request)
+    {
+        $repository = $this->getDoctrine()->getRepository('AppBundle:User');
+        $user = $repository->loadUserByUsername('g@mail.ru');
+        return $this->render('security/change_password.html.twig', ['email'=>$user->getEmail()]);
+    }
 }

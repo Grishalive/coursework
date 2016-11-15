@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -51,9 +52,21 @@ class User implements UserInterface, \Serializable
      */
     private $isActive;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Role")
+     * @ORM\JoinTable(name="user_role",
+     *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
+     * )
+     *
+     * @var ArrayCollection $userRoles
+     */
+    protected $userRoles;
+
     public function __construct()
     {
         $this->isActive = true;
+        $this->userRoles = new ArrayCollection();
 // may not be needed, see section on salt below
 // $this->salt = md5(uniqid(null, true));
     }
@@ -83,11 +96,6 @@ class User implements UserInterface, \Serializable
     public function getPassword()
     {
         return $this->password;
-    }
-
-    public function getRoles()
-    {
-        return array('ROLE_USER');
     }
 
     public function eraseCredentials()
@@ -203,4 +211,26 @@ class User implements UserInterface, \Serializable
     {
         return $this->isActive;
     }
+
+    /**
+     * Геттер для ролей пользователя.
+     *
+     * @return ArrayCollection A Doctrine ArrayCollection
+     */
+    public function getUserRoles()
+    {
+        return $this->userRoles;
+    }
+
+    /**
+     * Геттер для массива ролей.
+     *
+     * @return array An array of Role objects
+     */
+    public function getRoles()
+    {
+        return $this->getUserRoles()->toArray();
+    }
+
+
 }

@@ -21,10 +21,14 @@ security:
             security: false
 
         main:
+            pattern: /.*
             anonymous: ~
             form_login:
                 login_path: login #???
                 check_path: login #???
+    access_control:
+        - { path: /admin.*, role: ROLE_ADMIN }
+        - { path: /.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
             # activate different ways to authenticate
 
             # http_basic: ~
