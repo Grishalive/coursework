@@ -1,4 +1,7 @@
 {% extends 'base.html.twig' %}
+
+{% block title %} Login {% endblock %}
+
 {% block body %}
     <div class="container"><h1>Login</h1></div>
     {% if error %}
@@ -15,6 +18,7 @@
     </form>
     </div>
 {% endblock %}
+
 
     {#
         If you want to control the URL the user

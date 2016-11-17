@@ -1,7 +1,6 @@
 <?php
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Login;
 use AppBundle\Form\LoginType;
 use AppBundle\Form\UserType;
 use AppBundle\Entity\User;
@@ -41,8 +40,10 @@ class SecurityController extends Controller
     /**
      * @Route("/login", name="login")
      */
-    public function loginAction(Request $request)
+    public function loginAction()
     {
+        $form = $this->createForm(LoginType::class);
+
         $authenticationUtils = $this->get('security.authentication_utils');
 
         // get the login error if there is one
@@ -52,6 +53,7 @@ class SecurityController extends Controller
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('security/login.html.twig', array(
+            'form' => $form->createView(),
             'last_username' => $lastUsername,
             'error'         => $error,
         ));
