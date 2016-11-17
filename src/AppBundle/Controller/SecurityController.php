@@ -82,8 +82,6 @@ class SecurityController extends Controller
      */
     public function changePasswordAction(Request $request)
     {
-        $repository = $this->getDoctrine()->getRepository('AppBundle:User');
-        $user = $repository->loadUserByUsername('g@mail.ru');
         $message = \Swift_Message::newInstance()
             ->setSubject('Hello Email')
             ->setFrom('send@example.com')
@@ -108,6 +106,6 @@ class SecurityController extends Controller
             */
         ;
         $this->get('mailer')->send($message);
-        return $this->render('security/change_password.html.twig', ['email'=>$user->getEmail()]);
+        return $this->render('security/change_password.html.twig', []);
     }
 }
