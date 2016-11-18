@@ -1,7 +1,6 @@
 <?php
 namespace AppBundle\Controller;
 
-use AppBundle\Form\LoginType;
 use AppBundle\Form\UserType;
 use AppBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -42,7 +41,6 @@ class SecurityController extends Controller
      */
     public function loginAction()
     {
-        $form = $this->createForm(LoginType::class);
 
         $authenticationUtils = $this->get('security.authentication_utils');
 
@@ -53,7 +51,6 @@ class SecurityController extends Controller
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('security/login.html.twig', array(
-            'form' => $form->createView(),
             'last_username' => $lastUsername,
             'error'         => $error,
         ));

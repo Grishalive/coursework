@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -59,8 +60,8 @@ class User implements UserInterface, \Serializable
     public function __construct()
     {
         $this->isActive = true;
-        $this->userRoles = ['ROLE_USER',];
-
+        $this->userRoles = new ArrayCollection();
+        $this->userRoles->add('ROLE_USER');
 
 // may not be needed, see section on salt below
 // $this->salt = md5(uniqid(null, true));
@@ -215,7 +216,7 @@ class User implements UserInterface, \Serializable
      */
     public function getRoles()
     {
-        return $this->userRoles;
+        return $this->userRoles->toArray();
     }
 
 
