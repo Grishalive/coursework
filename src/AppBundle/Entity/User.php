@@ -55,13 +55,13 @@ class User implements UserInterface, \Serializable
     /**
      *@ORM\Column(name="user_role", type="array", length=30)
      */
-    protected $userRoles;
+    protected $roles;
 
     public function __construct()
     {
         $this->isActive = true;
-        $this->userRoles = new ArrayCollection();
-        $this->userRoles->add('ROLE_USER');
+        $this->roles = new ArrayCollection();
+        $this->roles->add('ROLE_USER');
 
 // may not be needed, see section on salt below
 // $this->salt = md5(uniqid(null, true));
@@ -216,8 +216,21 @@ class User implements UserInterface, \Serializable
      */
     public function getRoles()
     {
-        return $this->userRoles->toArray();
+        return $this->roles->toArray();
     }
 
+    /**
+     * Set userRoles
+     *
+     * @param boolean $isActive
+     *
+     * @return User
+     */
+    public function addRoles($role)
+    {
+        $this->roles[] = $role;
+
+        return $this;
+    }
 
 }

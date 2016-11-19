@@ -27,9 +27,14 @@ security:
                 login_path: login #???
                 check_path: login #???
     access_control:
-        - { path: /admin.*, role: ROLE_ADMIN }
-        - { path: /catalog/.*, role: ROLE_MANAGER }
         - { path: /.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: /catalog, role: ROLE_USER }
+        - { path: /catalog/.*, role: ROLE_MANAGER }
+        - { path: /admin.*, role: ROLE_ADMIN }
+    role_hierarchy:
+            ROLE_MANAGER:     ROLE_USER
+            ROLE_ADMIN:       [ROLE_USER, ROLE_MANAGER]
+            ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
             # activate different ways to authenticate
 
             # http_basic: ~

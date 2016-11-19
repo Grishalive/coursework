@@ -36,11 +36,11 @@ class Category
     private $isActive;
 
     /**
-     * @var array
      *
-     * @ORM\Column(name="subcategories", type="array", nullable=true)
+     *
+     * @ORM\Column(name="parent_category", type="object", nullable=true)
      */
-    private $subcategories;
+    private $parent_category;
 
     /**
      * @var array
@@ -108,29 +108,6 @@ class Category
         return $this->isActive;
     }
 
-    /**
-     * Set subcategories
-     *
-     * @param array $subcategories
-     *
-     * @return Category
-     */
-    public function setSubcategories($subcategories)
-    {
-        $this->subcategories = $subcategories;
-
-        return $this;
-    }
-
-    /**
-     * Get subcategories
-     *
-     * @return array
-     */
-    public function getSubcategories()
-    {
-        return $this->subcategories;
-    }
 
     /**
      * Set products
@@ -155,5 +132,28 @@ class Category
     {
         return $this->products;
     }
-}
 
+    /**
+     * Set parentCategory
+     *
+     * @param Category $parentCategory
+     *
+     * @return Category
+     */
+    public function setParentCategory(Category $parentCategory = null)
+    {
+        $this->parent_category = $parentCategory;
+
+        return $this;
+    }
+
+    /**
+     * Get parentCategory
+     *
+     * @return \stdClass
+     */
+    public function getParentCategory()
+    {
+        return $this->parent_category;
+    }
+}
