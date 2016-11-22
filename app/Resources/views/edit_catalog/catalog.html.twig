@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Catalog {% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/dist/themes/default/style.min.css') }}" />
+{% endblock %}
+
+{% block body %}
+    <div class="container"><h1>Catalog</h1></div>
+    <div class="container" style="color:white; background: green; width: 300px; float: left; ">
+        Выберите категорию
+        <div id="categories"  class="column categories">
+            <img src="img/loading.gif">
+        </div>
+        <div id="goods" class="column">
+            Список товаров
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/js/jstree.js') }}"></script>
+    {#<script src="{{ asset('bundles/js/catalog_tree_2.js') }}" type="text/javascript"></script>#}
+    <script>
+        $('#categories').jstree({ 'core' : {
+            'data' :
+                    JSON.parse({{ answer|json_encode|raw }})
+        } })
+    </script>
+{% endblock %}
+

@@ -40,7 +40,7 @@ class Category
      *
      * @ORM\Column(name="parent_category", type="object", nullable=true)
      */
-    private $parent_category;
+    private $parent_id;
 
     /**
      * @var array
@@ -49,13 +49,12 @@ class Category
      */
     private $products;
 
-
     /**
      * Get id
      *
      * @return int
      */
-    public function getId()
+    public function getID()
     {
         return $this->id;
     }
@@ -134,26 +133,25 @@ class Category
     }
 
     /**
-     * Set parentCategory
+     * Set parent_id
      *
-     * @param Category $parentCategory
+     * @param int $id
      *
      * @return Category
      */
-    public function setParentCategory(Category $parentCategory = null)
+    public function setParentID(int $id)
     {
-        $this->parent_category = $parentCategory;
-
+        $this->parent_id = $id;
         return $this;
     }
 
     /**
-     * Get parentCategory
+     * Get parent_id
      *
-     * @return \stdClass
+     * @return int
      */
-    public function getParentCategory()
+    public function getParentID()
     {
-        return $this->parent_category;
+        return $this->parent_id;
     }
 }

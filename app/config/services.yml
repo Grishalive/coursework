@@ -13,3 +13,5 @@ services:
         tags:
             - { name: knp_menu.menu_builder, method: createMainMenu, alias: main } # the previous menu
             - { name: knp_menu.menu_builder, method: createSidebarMenu, alias: sidebar } # Named "sidebar" this time
+    app.ajax_menu_converter:
+        class: AppBundle\Service\AjaxMenuConverter

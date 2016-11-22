@@ -27,7 +27,6 @@ security:
                 login_path: login #???
                 check_path: login #???
     access_control:
-        - { path: /.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: /catalog, role: ROLE_USER }
         - { path: /catalog/.*, role: ROLE_MANAGER }
         - { path: /admin.*, role: ROLE_ADMIN }

@@ -17,8 +17,26 @@ class CatalogController extends Controller
      */
     public function catalogAction(Request $request)
     {
-        return new Response('Catalog');
+        $em = $this->getDoctrine()->getManager();
+        $categories = $em->getRepository('AppBundle:Category')->findAllOrderedByID();
+        $result = $this->get('app.ajax_menu_converter')->convertCategoriesToJSON($categories);
+        return $this->render(':edit_catalog:catalog.html.twig', ['answer' => $result]);
     }
+
+    /**
+     * @Route("/catalog", name="catalog_ajax")
+     */
+    public function catalogAjaxAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $categories = $em->getRepository('AppBundle:Category')->findAllOrderedByID();
+        $result = $this->get('app.ajax_menu_converter')->convertCategoriesToJSON($categories);
+        json_encode(['code'=>'success',
+            'result'=>$result,
+        ]);
+        return $this->render(':edit_catalog:catalog.html.twig', []);
+    }
+
 
     /**
      * @Route("/catalog/edit", name="edit_catalog")
