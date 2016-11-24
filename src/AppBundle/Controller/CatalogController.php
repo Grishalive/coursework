@@ -15,7 +15,7 @@ class CatalogController extends Controller
 {
     /**
      * @Route("/catalog", name="catalog")
-     * @Template(":edit_catalog:catalog.html.twig")
+     * @Template(":catalog:catalog.html.twig")
      */
     public function catalogAction(Request $request)
     {
@@ -30,7 +30,20 @@ class CatalogController extends Controller
             5/*limit per page*/
         );
         return ['answer' => $categoriesJSON, 'pagination' => $pagination];
-        // return $this->render(':edit_catalog:catalog.html.twig', ['answer' => $categoriesJSON]);
+        // return $this->render(':catalog:catalog.html.twig', ['answer' => $categoriesJSON]);
+    }
+
+    /**
+     *
+     * @Route("/catalog/product/{id}", name="show_product", requirements={"id": "\d+"})
+     * @Template(":catalog:show_product.html.twig")
+     * @param $id
+     * @return array
+     */
+    public function showProductAction($id)
+    {
+        $product = $this->getDoctrine()->getRepository('AppBundle:Product')->find($id);
+        return ['product' => $product];
     }
 
     /**
@@ -44,12 +57,12 @@ class CatalogController extends Controller
         json_encode(['code'=>'success',
             'result'=>$result,
         ]);
-        return $this->render(':edit_catalog:catalog.html.twig', []);
+        return $this->render(':catalog:catalog.html.twig', []);
     }
 
 
     /**
-     * @Route("/catalog/edit", name="edit_catalog")
+     * @Route("/catalog/edit", name="catalog_edit")
      */
     public function editCatalogAction()
     {
@@ -71,7 +84,7 @@ class CatalogController extends Controller
             return $this->redirectToRoute('add_product');
         }
 
-        return $this->render('edit_catalog/edit_product.html.twig', ['form' => $form->createView()]);
+        return $this->render('catalog/edit_product.html.twig', ['form' => $form->createView()]);
 
     }
 }

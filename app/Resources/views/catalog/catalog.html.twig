@@ -21,7 +21,7 @@
                 {% for article in pagination %}
                     <tr {% if loop.index is odd %}class="color"{% endif %}>
                         <td> {{ article.id }}</td>
-                        <td>{{ article.name }}</td>
+                        <td><a href="{{ path('show_product', {'id': article.id}) }}">{{ article.name }}</a></td>
                         <td>{{ article.description }}</td>
                     </tr>
                 {% endfor %}

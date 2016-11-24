@@ -122,7 +122,7 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface
         $product_4->setCategory($category_2);
 
         $product_5 = new Product();
-        $product_5->setName('Peugeot 806 HDI');
+        $product_5->setName('Peugeot 406 HDI');
         $product_5->setSKU('23f233f');
         $product_5->setDescription('Big car');
         $product_5->setCategory($category_2);
