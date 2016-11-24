@@ -20,8 +20,9 @@
                 {# table body #}
                 {% for article in pagination %}
                     <tr {% if loop.index is odd %}class="color"{% endif %}>
-                        <td>{{ article.id }}</td>
+                        <td> {{ article.id }}</td>
                         <td>{{ article.name }}</td>
+                        <td>{{ article.description }}</td>
                     </tr>
                 {% endfor %}
             </table>

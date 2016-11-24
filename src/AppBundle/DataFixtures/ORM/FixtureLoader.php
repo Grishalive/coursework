@@ -98,12 +98,46 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface
         $user_3->setPassword($password);
 
         $product_1 = new Product();
-        $product_1->setId(0);
         $product_1->setName('Yamaha 2014 MX245');
         $product_1->setSKU('2345234');
         $product_1->setDescription('Хороший мот');
         $product_1->setCategory($category_7);
 
+        $product_2 = new Product();
+        $product_2->setName('Audi 80 2016 mx');
+        $product_2->setSKU('234523sdf4');
+        $product_2->setDescription('Mega car');
+        $product_2->setCategory($category_3);
+
+        $product_3 = new Product();
+        $product_3->setName('Audi 100 2015 mx');
+        $product_3->setSKU('234sd523sdf4');
+        $product_3->setDescription('Mega super');
+        $product_3->setCategory($category_3);
+
+        $product_4 = new Product();
+        $product_4->setName('Peugeot 806 HDI');
+        $product_4->setSKU('23f23sdsssss3f');
+        $product_4->setDescription('Big car');
+        $product_4->setCategory($category_2);
+
+        $product_5 = new Product();
+        $product_5->setName('Peugeot 806 HDI');
+        $product_5->setSKU('23f233f');
+        $product_5->setDescription('Big car');
+        $product_5->setCategory($category_2);
+
+        $product_6 = new Product();
+        $product_6->setName('Harley 7378 34');
+        $product_6->setSKU('23f233sdfdf');
+        $product_6->setDescription('Big moto');
+        $product_6->setCategory($category_6);
+
+        $product_7 = new Product();
+        $product_7->setName('Yamaha 7378 34');
+        $product_7->setSKU('2sgsgsdg');
+        $product_7->setDescription('Fast moto');
+        $product_7->setCategory($category_7);
 
         $manager->persist($category_1);
         $manager->persist($category_2);
@@ -116,6 +150,12 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface
         $manager->persist($user_2);
         $manager->persist($user_3);
         $manager->persist($product_1);
+        $manager->persist($product_2);
+        $manager->persist($product_3);
+        $manager->persist($product_4);
+        $manager->persist($product_5);
+        $manager->persist($product_6);
+        $manager->persist($product_7);
         $manager->flush();
         // ...
     }

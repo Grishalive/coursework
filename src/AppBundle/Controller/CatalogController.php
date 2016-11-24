@@ -21,30 +21,16 @@ class CatalogController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $categories = $em->getRepository('AppBundle:Category')->findAllOrderedByID();
-        $result = $this->get('app.ajax_menu_converter')->convertCategoriesToJSON($categories);
+        $categoriesJSON = $this->get('app.ajax_menu_converter')->convertCategoriesToJSON($categories);
+        $products = $em->getRepository('AppBundle:Product')->findAllOrderedByID();
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-            $categories, /* query NOT result */
+            $products, /* query NOT categoriesToJSON */
             $request->query->getInt('page', 1)/*page number*/,
             5/*limit per page*/
         );
-        return ['answer' => $result, 'pagination' => $pagination];
-        // return $this->render(':edit_catalog:catalog.html.twig', ['answer' => $result]);
-    }
-
-    /**
-     * @Route("/catalog/p", name="catalog_paginate")
-     *
-     */
-    public function listAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $categories = $em->getRepository('AppBundle:Category')->findAllOrderedByID();
-
-
-
-        // parameters to template
-        return $this->render(':edit_catalog:test.html.twig', array());
+        return ['answer' => $categoriesJSON, 'pagination' => $pagination];
+        // return $this->render(':edit_catalog:catalog.html.twig', ['answer' => $categoriesJSON]);
     }
 
     /**
