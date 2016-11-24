@@ -3,6 +3,7 @@
 namespace AppBundle\DataFixtures\ORM;
 
 use AppBundle\Entity\Category;
+use AppBundle\Entity\Product;
 use AppBundle\Entity\User;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -28,44 +29,44 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface
         $category_1->setName('Auto');
         $category_1->setIsActive(true);
         $category_1->setProducts(null);
-        $category_1->setParentID(0);
+        $category_1->setParent();
 
 
         $category_2 = new Category();
         $category_2->setName('Peugeot');
         $category_2->setIsActive(true);
         $category_2->setProducts(null);
-        $category_2->setParentID(1);
+        $category_2->setParent($category_1);
 
         $category_3 = new Category();
         $category_3->setName('Audi');
         $category_3->setIsActive(true);
         $category_3->setProducts(null);
-        $category_3->setParentID(1);
+        $category_3->setParent($category_1);
 
         $category_4 = new Category();
         $category_4->setName('Motocycles');
         $category_4->setIsActive(true);
         $category_4->setProducts(null);
-        $category_4->setParentID(0);
+        $category_4->setParent();
 
         $category_5 = new Category();
         $category_5->setName('Harley Davidson');
         $category_5->setIsActive(true);
         $category_5->setProducts(null);
-        $category_5->setParentID(13);
+        $category_5->setParent($category_4);
 
         $category_6 = new Category();
         $category_6->setName('Light');
         $category_6->setIsActive(true);
         $category_6->setProducts(null);
-        $category_6->setParentID(14);
+        $category_6->setParent($category_5);
 
         $category_7 = new Category();
         $category_7->setName('Yamaha');
         $category_7->setIsActive(true);
         $category_7->setProducts(null);
-        $category_7->setParentID(13);
+        $category_7->setParent($category_4);
 
         $user_1 = new User();
         $user_1->setUsername('grisha');
@@ -96,6 +97,14 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface
         $password = $encoder->encodePassword($user_3, $user_3->getPlainPassword());
         $user_3->setPassword($password);
 
+        $product_1 = new Product();
+        $product_1->setId(0);
+        $product_1->setName('Yamaha 2014 MX245');
+        $product_1->setSKU('2345234');
+        $product_1->setDescription('Хороший мот');
+        $product_1->setCategory($category_7);
+
+
         $manager->persist($category_1);
         $manager->persist($category_2);
         $manager->persist($category_3);
@@ -106,6 +115,7 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface
         $manager->persist($user_1);
         $manager->persist($user_2);
         $manager->persist($user_3);
+        $manager->persist($product_1);
         $manager->flush();
         // ...
     }

@@ -2,7 +2,11 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\OneToMany;
 
 /**
  * Category
@@ -35,19 +39,29 @@ class Category
      */
     private $isActive;
 
+    // ...
     /**
-     *
-     *
-     * @ORM\Column(name="parent_category", type="object", nullable=true)
+     * @OneToMany(targetEntity="Category", mappedBy="parent")
      */
-    private $parent_id;
+    private $children;
 
     /**
-     * @var array
+     * @ManyToOne(targetEntity="Category", inversedBy="children")
+     * @JoinColumn(name="parent_id", referencedColumnName="id")
+     */
+    private $parent;
+
+    /**
      *
-     * @ORM\Column(name="products", type="array", nullable=true)
+     * @OneToMany(targetEntity="Product", mappedBy="category")
+     *
      */
     private $products;
+
+    public function __construct() {
+        $this->products = new ArrayCollection();
+        $this->children = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -111,7 +125,7 @@ class Category
     /**
      * Set products
      *
-     * @param array $products
+     * @param ArrayCollection $products
      *
      * @return Category
      */
@@ -125,33 +139,104 @@ class Category
     /**
      * Get products
      *
-     * @return array
+     * @return ArrayCollection
      */
     public function getProducts()
     {
         return $this->products;
     }
 
+    
+
     /**
-     * Set parent_id
-     *
      * @param int $id
+     */
+    public function setId(int $id)
+    {
+        $this->id = $id;
+    }
+
+
+
+    /**
+     * Add product
+     *
+     * @param \AppBundle\Entity\Product $product
      *
      * @return Category
      */
-    public function setParentID(int $id)
+    public function addProduct(Product $product)
     {
-        $this->parent_id = $id;
+        $this->products[] = $product;
+
         return $this;
     }
 
     /**
-     * Get parent_id
+     * Remove product
      *
-     * @return int
+     * @param \AppBundle\Entity\Product $product
      */
-    public function getParentID()
+    public function removeProduct(Product $product)
     {
-        return $this->parent_id;
+        $this->products->removeElement($product);
+    }
+
+    /**
+     * Add child
+     *
+     * @param \AppBundle\Entity\Category $child
+     *
+     * @return Category
+     */
+    public function addChild(\AppBundle\Entity\Category $child)
+    {
+        $this->children[] = $child;
+
+        return $this;
+    }
+
+    /**
+     * Remove child
+     *
+     * @param \AppBundle\Entity\Category $child
+     */
+    public function removeChild(\AppBundle\Entity\Category $child)
+    {
+        $this->children->removeElement($child);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \AppBundle\Entity\Category $parent
+     *
+     * @return Category
+     */
+    public function setParent(\AppBundle\Entity\Category $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \AppBundle\Entity\Category
+     */
+    public function getParent()
+    {
+        return $this->parent;
     }
 }

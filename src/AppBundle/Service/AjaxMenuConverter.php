@@ -11,10 +11,10 @@ class AjaxMenuConverter
     {
         $answer = [];
         foreach ($categories as &$category) {
-            if ($category->getParentID() === 0) {
+            if ($category->getParent() === null) {
                 $parent_id = '#';
             } else {
-                $parent_id = strval($category->getParentID());
+                $parent_id = strval($category->getParent()->getID());
             }
             $answer[] = [
                 'id' => strval($category->getID()),

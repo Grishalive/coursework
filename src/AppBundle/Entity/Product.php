@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
 
 /**
  * Product
@@ -40,14 +42,14 @@ class Product
      *
      * @ORM\Column(name="creation_date", type="date")
      */
-    private $creationDate;
+    private $creation_date;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="last_change_date", type="date")
      */
-    private $lastChangeDate;
+    private $last_change_date;
 
     /**
      * @var bool
@@ -61,22 +63,30 @@ class Product
      *
      * @ORM\Column(name="SKU", type="string", length=255, unique=true)
      */
-    private $sKU;
+    private $sku;
 
     /**
      * @var array
      *
      * @ORM\Column(name="related_products", type="array", nullable=true)
      */
-    private $relatedProducts;
+    private $related_products_id;
+
+    /**
+     * @ManyToOne(targetEntity="Category", inversedBy="products")
+     * @JoinColumn(name="category_id", referencedColumnName="id")
+     */
+    private $category;
+
 
 
     public function __construct()
     {
-        $this->creationDate = new \DateTime('now');
-        $this->lastChangeDate = new \DateTime('now');
+        $this->creation_date = new \DateTime('now');
+        $this->last_change_date = new \DateTime('now');
         $this->isActive = true;
     }
+
 
     /**
      * Get id
@@ -139,13 +149,13 @@ class Product
     /**
      * Set creationDate
      *
-     * @param \DateTime $creationDate
+     * @param \DateTime $creation_date
      *
      * @return Product
      */
-    public function setCreationDate($creationDate)
+    public function setCreationDate($creation_date)
     {
-        $this->creationDate = $creationDate;
+        $this->creation_date = $creation_date;
 
         return $this;
     }
@@ -157,19 +167,19 @@ class Product
      */
     public function getCreationDate()
     {
-        return $this->creationDate;
+        return $this->creation_date;
     }
 
     /**
      * Set lastChangeDate
      *
-     * @param \DateTime $lastChangeDate
+     * @param \DateTime $last_change_date
      *
      * @return Product
      */
-    public function setLastChangeDate($lastChangeDate)
+    public function setLastChangeDate($last_change_date)
     {
-        $this->lastChangeDate = $lastChangeDate;
+        $this->last_change_date = $last_change_date;
 
         return $this;
     }
@@ -181,7 +191,7 @@ class Product
      */
     public function getLastChangeDate()
     {
-        return $this->lastChangeDate;
+        return $this->last_change_date;
     }
 
     /**
@@ -209,51 +219,75 @@ class Product
     }
 
     /**
-     * Set sKU
+     * Set SKU
      *
-     * @param string $sKU
+     * @param string $sku
      *
      * @return Product
      */
-    public function setSKU($sKU)
+    public function setSKU($sku)
     {
-        $this->sKU = $sKU;
+        $this->sku = $sku;
 
         return $this;
     }
 
     /**
-     * Get sKU
+     * Get SKU
      *
      * @return string
      */
     public function getSKU()
     {
-        return $this->sKU;
+        return $this->sku;
     }
 
+
     /**
-     * Set relatedProducts
-     *
-     * @param array $relatedProducts
-     *
-     * @return Product
+     * @param int $id
      */
-    public function setRelatedProducts($relatedProducts)
+    public function setId(int $id)
     {
-        $this->relatedProducts = $relatedProducts;
-
-        return $this;
+        $this->id = $id;
     }
 
     /**
-     * Get relatedProducts
+     * @return mixed
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param array $related_products_id
+     */
+    public function setRelatedProductsId(array $related_products_id)
+    {
+        $this->related_products_id = $related_products_id;
+    }
+
+    /**
+     * Get relatedProductsId
      *
      * @return array
      */
-    public function getRelatedProducts()
+    public function getRelatedProductsId()
     {
-        return $this->relatedProducts;
+        return $this->related_products_id;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \AppBundle\Entity\Category $category
+     *
+     * @return Product
+     */
+    public function setCategory(Category $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
     }
 }
-

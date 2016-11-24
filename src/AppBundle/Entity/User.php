@@ -222,9 +222,10 @@ class User implements UserInterface, \Serializable
     /**
      * Set userRoles
      *
-     * @param boolean $isActive
-     *
+     * @param $role
      * @return User
+     * @internal param bool $isActive
+     *
      */
     public function addRoles($role)
     {
