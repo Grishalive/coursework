@@ -3,25 +3,25 @@
 {% block title %} Catalog {% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('bundles/dist/themes/default/styles.min.css') }}" />
+    {#<link rel="stylesheet" href="{{ asset('bundles/dist/themes/default/styles.min.css') }}" />#}
 {% endblock %}
 
 {% block body %}
     <div class="container"><h1>Catalog</h1></div>
     <div class="container">
-        <div id="categories"  >
-            <img src="img/loading.gif">
+        <div id="categories" style="float: left" >
+            {#<img src="{{asset('img/loading.gif')}}">#}
         </div>
-        <div id="goods" class="column" style="float: right">
+        <div id="goods" class="column" style="float: left; margin-left: 15%">
             {% if pagination is defined %}
-            <table>
+            <div>
                 {% for article in pagination %}
-                    <tr {% if loop.index is odd %}class="color"{% endif %}>
-                        <td><a href="{{ path('show_product', {'id': article.id}) }}">{{ article.name }}</a></td>
-                        <td>{{ article.description }}</td>
-                    </tr>
+                    <div {% if loop.index is odd %}class="color"{% endif %} style="border: 1px solid #afd9ee; margin-bottom: 2px; padding: 10px 20px; padding-right: 300px">
+                        <h4><a href="{{ path('show_product', {'id': article.id}) }}">{{ article.name }}</a></h4>
+                        <h5>{{ article.description }}</h5>
+                    </div>
                 {% endfor %}
-            </table>
+            </div>
             <div class="navigation">
                 {{ knp_pagination_render(pagination) }}
             </div>
@@ -54,12 +54,6 @@
                        $('#goods').html(response);
                     }
                 });
-                {#$.post('{{path('catalog')}}',#}
-                        {#{id: data.node.id},#}
-                        {#function(response){#}
-                            {#$('#goods').html(response);#}
-
-                        {#}, "json");#}
             }
         });
     </script>

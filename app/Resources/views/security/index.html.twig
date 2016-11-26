@@ -2,9 +2,11 @@
 
 
 {% block body %}
-    <div class="container"><h1>This is Cataloger</h1></div>
-    <div class="container">
-        <a class="btn btn-success btn-lg" href="{{ path('login') }}">Login</a>
-        <a class="btn btn-info btn-lg" href="{{ path('register') }}">Register</a>
+    <div style="margin: 0 auto; width: 50%;">
+    <h1 style="text-align: center;">This is Cataloger</h1>
+    <div style="margin: 0 auto; width: 50%;  margin-top: 5%;">
+        <a class="btn btn-success btn-lg" style="display: block;width: 100%" href="{{ path('login') }}">Login</a>
+        <a class="btn btn-info btn-lg" style="display: block; width: 100%; margin-top: 5% "  href="{{ path('register') }}">Register</a>
+    </div>
     </div>
 {% endblock %}

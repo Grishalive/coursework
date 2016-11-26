@@ -68,6 +68,24 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface
         $category_7->setProducts(null);
         $category_7->setParent($category_4);
 
+        $category_8 = new Category();
+        $category_8->setName('Smartphones');
+        $category_8->setIsActive(true);
+        $category_8->setProducts(null);
+        $category_8->setParent();
+
+        $category_9 = new Category();
+        $category_9->setName('iPhone');
+        $category_9->setIsActive(true);
+        $category_9->setProducts(null);
+        $category_9->setParent($category_8);
+
+        $category_10 = new Category();
+        $category_10->setName('Samsung');
+        $category_10->setIsActive(true);
+        $category_10->setProducts(null);
+        $category_10->setParent($category_8);
+
         $user_1 = new User();
         $user_1->setUsername('grisha');
         $user_1->setEmail('g@mail.ru');
@@ -139,6 +157,22 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface
         $product_7->setDescription('Fast moto');
         $product_7->setCategory($category_7);
 
+        for ($i = 0; $i < 10; $i++) {
+            $product = new Product();
+            $product->setName('iPhone '.$i);
+            $product->setSKU('23f233sdfdf'.$i);
+            $product->setDescription('Cool iPhone '.$i);
+            $product->setCategory($category_9);
+            $manager->persist($product);
+
+            $product_ = new Product();
+            $product_->setName('Samsung S'.$i);
+            $product_->setSKU('23fdf233sdfdf'.$i);
+            $product_->setDescription('Amazing phone '.$i);
+            $product_->setCategory($category_10);
+            $manager->persist($product_);
+        }
+
         $manager->persist($category_1);
         $manager->persist($category_2);
         $manager->persist($category_3);
@@ -146,6 +180,9 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface
         $manager->persist($category_5);
         $manager->persist($category_6);
         $manager->persist($category_7);
+        $manager->persist($category_8);
+        $manager->persist($category_9);
+        $manager->persist($category_10);
         $manager->persist($user_1);
         $manager->persist($user_2);
         $manager->persist($user_3);
