@@ -51,8 +51,26 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="{{ path('homepage') }}">Home</a></li>
                             <li><a href="{{ path('catalog') }}">Catalog</a></li>
-                            <li><a href="{{ path('login') }}">Login</a></li>
-                            <li><a href="{{ path('register') }}">Registration</a></li>
+                            {% if app.user.roles is defined %}
+                            {% if 'ROLE_MANAGER' in app.user.roles %}
+                                <li><a href="{{ path('catalog_edit') }}">EditCatalog</a></li>
+                            {% endif %}
+                            {% if 'ROLE_ADMIN' in app.user.roles %}
+                                <li><a href="{{ path('catalog_edit') }}">EditCatalog</a></li>
+                                <li><a href="{{ path('add_product') }}">AdminPanel</a></li>
+                            {% endif %}
+                            {% if 'ROLE_USER' in app.user.roles %}
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                        {{ app.user.username }}
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="{{ path('logout') }}">Logout</a></li>
+                                    </ul>
+                                </li>
+                            {% endif %}
+                            {% endif %}
                         </ul>
                     </div>
                     {#{{ knp_menu_render('main') }}#}
