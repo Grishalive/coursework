@@ -5,13 +5,49 @@
 {% block body %}
     <div class="container"><h1>Registration</h1></div>
     <div class="container">
-    {{ form_start(form) }}
-    {{ form_row(form.username) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.plainPassword.first) }}
-    {{ form_row(form.plainPassword.second) }}
+        {{ form_start(form) }}
+        <div class="container">
+            <div style="float: left;">
+                {{ form_label(form.username) }}:
+                {{ form_widget(form.username) }}
+            </div>
+            <div style="float: left; color: #761c19">
+                {{ form_errors(form.username) }}
+            </div>
+        </div>
+        <div class="container">
+            <div style="float: left;">
+                {{ form_label(form.email) }}:
+                {{ form_widget(form.email) }}
+            </div>
+            <div style="float: left; color: #761c19">
+                {{ form_errors(form.email) }}
+            </div>
+        </div>
+        <div class="container">
+            <div style="float: left;">
+                {{ form_label(form.plainPassword.first) }}:
+                {{ form_widget(form.plainPassword.first) }}
+            </div>
+            <div style="float: left; color: #761c19">
+                {{ form_errors(form.plainPassword.first) }}
+            </div>
+        </div>
+        <div class="container">
+            <div style="float: left;">
+                {{ form_label(form.plainPassword.second) }}:
+                {{ form_widget(form.plainPassword.second) }}
+            </div>
+            <div style="float: left; color: #761c19">
+            {{ form_errors(form.plainPassword.second) }}
+            </div>
+        </div>
+            {#{{ form_row(form.username) }}#}
+        {#{{ form_row(form.email) }}#}
+        {#{{ form_row(form.plainPassword.first) }}#}
+        {#{{ form_row(form.plainPassword.second) }}#}
 
-    <button type="submit">Register</button>
-    {{ form_end(form) }}
+        <button type="submit">Register</button>
+        {{ form_end(form) }}
     </div>
 {% endblock %}
