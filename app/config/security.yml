@@ -27,9 +27,9 @@ security:
                 login_path: login #???
                 check_path: login #???
     access_control:
-        - { path: /catalog, role: ROLE_USER }
-        - { path: /catalog/.*, role: ROLE_MANAGER }
-        - { path: /admin.*, role: ROLE_ADMIN }
+        - { path: ^/catalog$, role: ROLE_USER }
+        - { path: ^/catalog/.*, role: ROLE_MANAGER }
+        - { path: ^/admin.*, role: ROLE_ADMIN }
     role_hierarchy:
             ROLE_MANAGER:     ROLE_USER
             ROLE_ADMIN:       [ROLE_USER, ROLE_MANAGER]
