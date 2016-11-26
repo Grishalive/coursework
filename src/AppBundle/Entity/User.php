@@ -182,6 +182,7 @@ class User implements UserInterface, \Serializable
     public function getEmail()
     {
         return $this->email;
+
     }
 
     /**

@@ -3,33 +3,29 @@
 {% block title %} Catalog {% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('bundles/dist/themes/default/styleds.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/dist/themes/default/styles.min.css') }}" />
 {% endblock %}
 
 {% block body %}
     <div class="container"><h1>Catalog</h1></div>
     <div class="container">
-        <div id="categories" style="color:white; background: orange;  float: left; "  class="column categories">`
+        <div id="categories"  >
             <img src="img/loading.gif">
         </div>
         <div id="goods" class="column" style="float: right">
-            <div class="count">
-                {{ pagination.getTotalItemCount }}
-            </div>
+            {% if pagination is defined %}
             <table>
-                {# table body #}
                 {% for article in pagination %}
                     <tr {% if loop.index is odd %}class="color"{% endif %}>
-                        <td> {{ article.id }}</td>
                         <td><a href="{{ path('show_product', {'id': article.id}) }}">{{ article.name }}</a></td>
                         <td>{{ article.description }}</td>
                     </tr>
                 {% endfor %}
             </table>
-            {# display navigation #}
             <div class="navigation">
                 {{ knp_pagination_render(pagination) }}
             </div>
+            {% endif %}
         </div>
     </div>
 
@@ -45,6 +41,26 @@
         } });
         $('#categories').on('select_node.jstree', function (e, data) {
             data.instance.toggle_node(data.node);
+            //var node = $(this).jstree('get_selected');
+            if (data.node.children.length === 0) {
+                $.ajax({
+                    type: "POST",
+                    url: '{{path('catalog')}}',
+                    data: {
+                        category_id: data.node.id
+                    },
+                    success: function(response) {
+
+                       $('#goods').html(response);
+                    }
+                });
+                {#$.post('{{path('catalog')}}',#}
+                        {#{id: data.node.id},#}
+                        {#function(response){#}
+                            {#$('#goods').html(response);#}
+
+                        {#}, "json");#}
+            }
         });
     </script>
 {% endblock %}

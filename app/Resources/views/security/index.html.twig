@@ -2,5 +2,9 @@
 
 
 {% block body %}
-    <div class="container"><h1>Main</h1></div>
+    <div class="container"><h1>This is Cataloger</h1></div>
+    <div class="container">
+        <a class="btn btn-success btn-lg" href="{{ path('login') }}">Login</a>
+        <a class="btn btn-info btn-lg" href="{{ path('register') }}">Register</a>
+    </div>
 {% endblock %}

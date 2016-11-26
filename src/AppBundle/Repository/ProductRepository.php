@@ -19,4 +19,11 @@ class ProductRepository extends EntityRepository
             )
             ->getResult();
     }
+    public function findAllRelatedToCategory($id) {
+        return $this->getEntityManager()
+            ->createQuery(
+                'SELECT p FROM AppBundle:Product p WHERE p.category = $id'
+            )
+            ->getResult();
+    }
 }
