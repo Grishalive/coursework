@@ -34,7 +34,8 @@
             'multiple': false,
         }, plugins: ['dnd'] }).bind('changed.jstree', function(e, data) {
             var name = data.node.text;
-            if (data.node.children.length === 0) {
+            console.log(data.node.original.type);
+            if (data.node.original.type === 'product') {
                 $('#edit_button')
                         .html('<a class="btn btn-warning btn-df" style="margin-top: 1%"' +
                                 ' href="{{ path('edit_product') }}">Edit Product: ' +
@@ -51,7 +52,8 @@
                 old_parent: +data.old_parent,
                 new_parent: +data.parent,
             };
-            if (data.node.children.length === 0) {
+            console.log(data.node);
+            if (data.node.original.type === 'product') {
                 console.log(data.node);
                 _moveProduct(params);
             } else {
@@ -71,9 +73,6 @@
                 success: function(resp) {
 
                 },
-                error: function(error) {
-                    console.error('Ошибка: ', error);
-                }
             });
         }
         function _moveProduct(params) {

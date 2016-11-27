@@ -2,7 +2,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
+use AppBundle\Form\CategoryType;
 use AppBundle\Form\ProductType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -104,7 +106,7 @@ class CatalogController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
             $em->flush();
-            return $this->redirectToRoute('add_product');
+            return $this->redirectToRoute('catalog_edit');
         }
 
         return $this->render('catalog/edit_product.html.twig', ['form' => $form->createView()]);
@@ -115,7 +117,17 @@ class CatalogController extends Controller
      */
     public function addCategoryAction(Request $request)
     {
-        return new \Symfony\Component\HttpFoundation\Response("add_cat");
+        $category = new Category();
+        $form = $this->createForm(CategoryType::class, $category);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($category);
+            $em->flush();
+            return $this->redirectToRoute('catalog_edit');
+        }
+
+        return $this->render(':catalog:edit_category.html.twig', ['form' => $form->createView()]);
     }
 
     /**

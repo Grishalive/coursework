@@ -39,6 +39,7 @@ class AjaxMenuConverter
                 'id' => strval($category->getID()),
                 'parent' => $parent_id,
                 'text' => $category->getName(),
+                'type' => 'category'
             ];
         }
         foreach ($products as &$product) {
@@ -51,7 +52,8 @@ class AjaxMenuConverter
                 'id' => $product->getSKU(),
                 'parent' => $parent_id,
                 'text' => $product->getName(),
-                'icon'=> 'glyphicon glyphicon-leaf'
+                'icon'=> 'glyphicon glyphicon-leaf',
+                'type' => 'product'
             ];
         }
         $json_answer = json_encode($answer);

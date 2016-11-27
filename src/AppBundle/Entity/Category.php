@@ -41,7 +41,7 @@ class Category
 
     // ...
     /**
-     * @OneToMany(targetEntity="Category", mappedBy="parent")
+     * @OneToMany(targetEntity="Category", mappedBy="parent", cascade={"persist", "merge", "remove"})
      */
     private $children;
 
@@ -61,6 +61,7 @@ class Category
     public function __construct() {
         $this->products = new ArrayCollection();
         $this->children = new ArrayCollection();
+        $this->parent = null;
     }
 
     /**
