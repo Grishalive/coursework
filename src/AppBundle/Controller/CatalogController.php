@@ -131,15 +131,26 @@ class CatalogController extends Controller
     }
 
     /**
-     * @Route("/catalog/edit/product", name="edit_product")
+     * @Route("/catalog/edit/product/{id}", requirements={"id": "\d+"}, name="edit_product")
      */
-    public function editProductAction(Request $request)
+    public function editProductAction(Request $request, $id)
     {
-        return new \Symfony\Component\HttpFoundation\Response("ed_prod");
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository('AppBundle:Product')->findOneBy(['sku' => $id]);
+        $form = $this->createForm(ProductType::class, $product);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($product);
+            $em->flush();
+            return $this->redirectToRoute('catalog_edit');
+        }
+
+        return $this->render('catalog/edit_product.html.twig', ['form' => $form->createView()]);
     }
 
     /**
-     * @Route("/catalog/edit/category", name="edit_category")
+     * @Route("/catalog/edit/category/{id}", requirements={"id": "\d+"}, name="edit_category")
      */
     public function editCategoryAction(Request $request)
     {

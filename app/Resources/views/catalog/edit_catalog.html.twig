@@ -36,14 +36,20 @@
             var name = data.node.text;
             console.log(data.node.original.type);
             if (data.node.original.type === 'product') {
+                var route = "{{ path('edit_product', { 'id': "1111" }) }}";
+                console.log(data.node.id);
+                route = route.replace("1111", data.node.id);
                 $('#edit_button')
                         .html('<a class="btn btn-warning btn-df" style="margin-top: 1%"' +
-                                ' href="{{ path('edit_product') }}">Edit Product: ' +
+                                ' href="' + route + '">Edit Product: ' +
                 name +'</a>');
+
             } else {
+                route = "{{ path('edit_category', { 'id': "1111" }) }}";
+                route = route.replace("1111", data.node.id);
                 $('#edit_button')
                         .html('<a class="btn btn-danger btn-df" style="margin-top: 1%"' +
-                                ' href="{{ path('edit_category') }}">Edit Category: ' +
+                                ' href="' + route + '">Edit Category: ' +
                 name +'</a>');
             }
         }).bind('move_node.jstree', function(e, data) {
