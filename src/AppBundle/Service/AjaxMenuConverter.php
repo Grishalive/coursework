@@ -42,9 +42,14 @@ class AjaxMenuConverter
             ];
         }
         foreach ($products as &$product) {
+            if ($product->getCategory() === null) {
+                $parent_id = '#';
+            } else {
+                $parent_id = strval($product->getCategory()->getID());
+            }
             $answer[] = [
                 'id' => $product->getSKU(),
-                'parent' => $product->getCategory()->getID(),
+                'parent' => $parent_id,
                 'text' => $product->getName(),
                 'icon'=> 'glyphicon glyphicon-leaf'
             ];

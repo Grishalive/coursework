@@ -28,8 +28,14 @@ class ProductRepository extends EntityRepository
         $new_category = $this->getEntityManager()->getRepository('AppBundle:Category')
             ->find($new_parent_id);
 
-        $old_category->removeProduct($product);
-        $new_category->addProduct($product);
+        if ($old_category) {
+            $old_category->removeProduct($product);
+            $this->getEntityManager()->merge($old_category);
+        }
+        if($new_category) {
+            $new_category->addProduct($product);
+            $this->getEntityManager()->merge($new_category);
+        }
 
         $product->setCategory($new_category);
 
