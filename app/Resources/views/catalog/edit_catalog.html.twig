@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Edit Cataloger {% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/dist/themes/default/style.min.css') }}" />
+{% endblock %}
+
+{% block body %}
+
+    <div class="container"><h1>Edit Cataloger</h1></div>
+    <div class="container">
+        <div id="categories"  >
+            {#<img src="{{asset('img/loading.gif')}}">#}
+        </div>
+        <div id="edit_button">
+        </div>
+        <div style="float:left; margin-top: 1%">
+            <a class="btn btn-success btn-df" href="{{ path('add_category') }}">Add New Category</a>
+            <a class="btn btn-info btn-df" href="{{ path('add_product') }}">Add New Product</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('bundles/js/jstree.js') }}"></script>
+    <script>
+        ajaxUrl = "{{ path('catalog_edit') }}";
+        changedNode = '';
+        $('#categories').jstree({ 'core' : {
+            'data' :
+                    JSON.parse({{ tree|json_encode|raw }}),
+            'check_callback': true,
+            'multiple': false,
+        }, plugins: ['dnd'] }).bind('changed.jstree', function(e, data) {
+            var name = data.node.text;
+            if (data.node.children.length === 0) {
+                $('#edit_button')
+                        .html('<a class="btn btn-warning btn-df" style="margin-top: 1%"' +
+                                ' href="{{ path('edit_product') }}">Edit Product: ' +
+                name +'</a>');
+            } else {
+                $('#edit_button')
+                        .html('<a class="btn btn-danger btn-df" style="margin-top: 1%"' +
+                                ' href="{{ path('edit_category') }}">Edit Category: ' +
+                name +'</a>');
+            }
+        }).bind('move_node.jstree', function(e, data) {
+            var params = {
+                id: +data.node.id,
+                old_parent: +data.old_parent,
+                new_parent: +data.parent,
+            };
+            if (data.node.children.length === 0) {
+                console.log(data.node);
+                _moveProduct(params);
+            } else {
+                _moveCategory(params);
+            }
+            console.log('move_node params', params);
+        });
+        function _moveCategory(params) {
+            var data = $.extend(params, {
+                action: 'move_category'
+            });
+
+            $.ajax({
+                url: ajaxUrl,
+                data: data,
+                dataType: 'json',
+                success: function(resp) {
+
+                },
+                error: function(error) {
+                    console.error('Ошибка: ', error);
+                }
+            });
+        }
+        function _moveProduct(params) {
+            var data = $.extend(params, {
+                action: 'move_product'
+            });
+
+            $.ajax({
+                url: ajaxUrl,
+                data: data,
+                dataType: 'json',
+                success: function(resp) {
+
+                },
+            });
+        }
+    </script>
+{% endblock %}

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Product;
@@ -8,7 +7,6 @@ use AppBundle\Form\ProductType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\HttpFoundation\Request;
 
 class CatalogController extends Controller
@@ -95,7 +93,7 @@ class CatalogController extends Controller
     }
 
     /**
-     * @Route("/catalog/edit/add_product", name="add_product")
+     * @Route("/catalog/edit/add/product", name="add_product")
      */
     public function addProductAction(Request $request)
     {
@@ -110,6 +108,29 @@ class CatalogController extends Controller
         }
 
         return $this->render('catalog/edit_product.html.twig', ['form' => $form->createView()]);
+    }
 
+    /**
+     * @Route("/catalog/edit/add/category", name="add_category")
+     */
+    public function addCategoryAction(Request $request)
+    {
+        return new \Symfony\Component\HttpFoundation\Response("add_cat");
+    }
+
+    /**
+     * @Route("/catalog/edit/product", name="edit_product")
+     */
+    public function editProductAction(Request $request)
+    {
+        return new \Symfony\Component\HttpFoundation\Response("ed_prod");
+    }
+
+    /**
+     * @Route("/catalog/edit/category", name="edit_category")
+     */
+    public function editCategoryAction(Request $request)
+    {
+        return new \Symfony\Component\HttpFoundation\Response("ed_cat");
     }
 }
