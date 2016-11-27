@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Product{% endblock %}
+
+{% block body %}
+    <div class="container"><h1>{{ title }}</h1></div>
+    <div class="container">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit">{{ button_text }}</button>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

@@ -109,7 +109,10 @@ class CatalogController extends Controller
             return $this->redirectToRoute('catalog_edit');
         }
 
-        return $this->render('catalog/edit_product.html.twig', ['form' => $form->createView()]);
+        return $this->render('catalog/edit_product.html.twig', ['form' => $form->createView(),
+            'title' => 'Add Product',
+            'button_text' => 'Add'
+        ]);
     }
 
     /**
@@ -127,7 +130,10 @@ class CatalogController extends Controller
             return $this->redirectToRoute('catalog_edit');
         }
 
-        return $this->render(':catalog:edit_category.html.twig', ['form' => $form->createView()]);
+        return $this->render(':catalog:edit_category.html.twig', ['form' => $form->createView(),
+            'title' => 'Add Category',
+            'button_text' => 'Add',
+        ]);
     }
 
     /**
@@ -146,14 +152,30 @@ class CatalogController extends Controller
             return $this->redirectToRoute('catalog_edit');
         }
 
-        return $this->render('catalog/edit_product.html.twig', ['form' => $form->createView()]);
+        return $this->render('catalog/edit_product.html.twig', ['form' => $form->createView(),
+            'title' => 'Edit Product',
+            'button_text' => 'Edit',
+        ]);
     }
 
     /**
      * @Route("/catalog/edit/category/{id}", requirements={"id": "\d+"}, name="edit_category")
      */
-    public function editCategoryAction(Request $request)
+    public function editCategoryAction(Request $request, $id)
     {
-        return new \Symfony\Component\HttpFoundation\Response("ed_cat");
+        $em = $this->getDoctrine()->getManager();
+        $category = $em->getRepository('AppBundle:Category')->find($id);
+        $form = $this->createForm(CategoryType::class, $category);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($category);
+            $em->flush();
+            return $this->redirectToRoute('catalog_edit');
+        }
+        return $this->render('catalog/edit_category.html.twig', ['form' => $form->createView(),
+            'title' => 'Edit Category',
+            'button_text' => 'Edit'
+        ]);
     }
 }
