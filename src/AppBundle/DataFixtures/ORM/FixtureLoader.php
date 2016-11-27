@@ -147,7 +147,7 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface
 
         $product_6 = new Product();
         $product_6->setName('Harley 7378 34');
-        $product_6->setSKU('23f233793282');
+        $product_6->setSKU('23233793282');
         $product_6->setDescription('Big moto');
         $product_6->setCategory($category_6);
 

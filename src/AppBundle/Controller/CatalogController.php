@@ -9,6 +9,7 @@ use AppBundle\Form\ProductType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 
 class CatalogController extends Controller
@@ -34,7 +35,11 @@ class CatalogController extends Controller
         } else {
             if ($this->get('session')->get('category_id')) {
                 $category = $em->getRepository('AppBundle:Category')->find($this->get('session')->get('category_id'));
-                $products = $category->getProducts();
+                if ($category) {
+                    $products = $category->getProducts();
+                } else {
+                    $products = $em->getRepository('AppBundle:Product')->findAllOrderedByID();
+                }
             } else {
                 $products = $em->getRepository('AppBundle:Product')->findAllOrderedByID();
             }
@@ -103,6 +108,13 @@ class CatalogController extends Controller
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            if (!preg_match('/^[1-9][0-9]*$/', $form->getData()->getSKU())) {
+                $form->get('SKU')->addError(new FormError('SKU must be numeric!'));
+                return $this->render('catalog/edit_product.html.twig', ['form' => $form->createView(),
+                    'title' => 'Edit Product',
+                    'button_text' => 'Edit',
+                ]);
+            }
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
             $em->flush();
@@ -146,6 +158,13 @@ class CatalogController extends Controller
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            if (!preg_match('/^[1-9][0-9]*$/', $form->getData()->getSKU())) {
+                $form->get('SKU')->addError(new FormError('SKU must be numeric!'));
+                return $this->render('catalog/edit_product.html.twig', ['form' => $form->createView(),
+                    'title' => 'Edit Product',
+                    'button_text' => 'Edit',
+                ]);
+            }
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
             $em->flush();

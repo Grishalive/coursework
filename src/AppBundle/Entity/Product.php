@@ -4,12 +4,14 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToOne;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Product
  *
  * @ORM\Table(name="product")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ProductRepository")
+ * @UniqueEntity("sku")
  */
 class Product
 {
@@ -58,9 +60,9 @@ class Product
     private $isActive;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="SKU", type="string", length=255, unique=true)
+     * @ORM\Column(name="SKU", type="bigint", unique=true)
      */
     private $sku;
 
@@ -219,7 +221,7 @@ class Product
     /**
      * Set SKU
      *
-     * @param string $sku
+     * @param int $sku
      *
      * @return Product
      */
@@ -233,7 +235,7 @@ class Product
     /**
      * Get SKU
      *
-     * @return string
+     * @return int
      */
     public function getSKU()
     {
