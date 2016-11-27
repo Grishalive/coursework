@@ -123,51 +123,51 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface
 
         $product_2 = new Product();
         $product_2->setName('Audi 80 2016 mx');
-        $product_2->setSKU('234523sdf4');
+        $product_2->setSKU('2345231234');
         $product_2->setDescription('Mega car');
         $product_2->setCategory($category_3);
 
         $product_3 = new Product();
         $product_3->setName('Audi 100 2015 mx');
-        $product_3->setSKU('234sd523sdf4');
+        $product_3->setSKU('23423454');
         $product_3->setDescription('Mega super');
         $product_3->setCategory($category_3);
 
         $product_4 = new Product();
         $product_4->setName('Peugeot 806 HDI');
-        $product_4->setSKU('23f23sdsssss3f');
+        $product_4->setSKU('23239834753');
         $product_4->setDescription('Big car');
         $product_4->setCategory($category_2);
 
         $product_5 = new Product();
         $product_5->setName('Peugeot 406 HDI');
-        $product_5->setSKU('23f233f');
+        $product_5->setSKU('23234523334');
         $product_5->setDescription('Big car');
         $product_5->setCategory($category_2);
 
         $product_6 = new Product();
         $product_6->setName('Harley 7378 34');
-        $product_6->setSKU('23f233sdfdf');
+        $product_6->setSKU('23f233793282');
         $product_6->setDescription('Big moto');
         $product_6->setCategory($category_6);
 
         $product_7 = new Product();
         $product_7->setName('Yamaha 7378 34');
-        $product_7->setSKU('2sgsgsdg');
+        $product_7->setSKU('21876387343');
         $product_7->setDescription('Fast moto');
         $product_7->setCategory($category_7);
 
         for ($i = 0; $i < 10; $i++) {
             $product = new Product();
             $product->setName('iPhone '.$i);
-            $product->setSKU('23f233sdfdf'.$i);
+            $product->setSKU('98098324'.$i);
             $product->setDescription('Cool iPhone '.$i);
             $product->setCategory($category_9);
             $manager->persist($product);
 
             $product_ = new Product();
             $product_->setName('Samsung S'.$i);
-            $product_->setSKU('23fdf233sdfdf'.$i);
+            $product_->setSKU('23098234983'.$i);
             $product_->setDescription('Amazing phone '.$i);
             $product_->setCategory($category_10);
             $manager->persist($product_);

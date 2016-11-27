@@ -19,4 +19,13 @@ class CategoryRepository extends EntityRepository
             )
             ->getResult();
     }
+
+    public function moveCategory($category_id, $old_parent_id, $new_parent_id){
+        $category = $this->find($category_id);
+        $old_parent = $this->find($old_parent_id);
+        $new_parent = $this->find($new_parent_id);
+        $category->setParent($new_parent);
+        $this->getEntityManager()->merge($category);
+        $this->getEntityManager()->flush();
+    }
 }

@@ -3,7 +3,6 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
 
 /**
@@ -74,7 +73,6 @@ class Product
 
     /**
      * @ManyToOne(targetEntity="Category", inversedBy="products")
-     * @JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $category;
 
@@ -290,4 +288,6 @@ class Product
 
         return $this;
     }
+
+
 }

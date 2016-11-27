@@ -8,8 +8,8 @@ use AppBundle\Form\ProductType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class CatalogController extends Controller
 {
@@ -67,10 +67,31 @@ class CatalogController extends Controller
 
     /**
      * @Route("/catalog/edit", name="catalog_edit")
+     * @Template(":catalog:edit_catalog.html.twig")
      */
-    public function editCatalogAction()
+    public function editCatalogAction(Request $request)
     {
-        return new Response('editCatalog');
+        $em = $this->getDoctrine()->getManager();
+        switch ($request->query->get('action')) {
+            case 'move_category':
+                $category_id = $request->query->get('id');
+                $old_parent = $request->query->get('old_parent');
+                $new_parent = $request->query->get('new_parent');
+                $em->getRepository('AppBundle:Category')->moveCategory($category_id, $old_parent, $new_parent);
+                break;
+            case 'move_product':
+                $product_id = $request->query->get('id');
+                $old_parent = $request->query->get('old_parent');
+                $new_parent = $request->query->get('new_parent');
+                $em->getRepository('AppBundle:Product')->moveProduct($product_id, $old_parent, $new_parent);
+                break;
+        }
+        $em = $this->getDoctrine()->getManager();
+        $products = $em->getRepository('AppBundle:Product')->findAllOrderedByID();
+        $categories = $em->getRepository('AppBundle:Category')->findAllOrderedByID();
+        $result = $this->get('app.ajax_menu_converter')
+            ->convertCategoriesProductsToJSON($categories, $products);
+        return ['tree' => $result];
     }
 
     /**

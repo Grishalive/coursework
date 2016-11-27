@@ -19,11 +19,24 @@ class ProductRepository extends EntityRepository
             )
             ->getResult();
     }
-    public function findAllRelatedToCategory($id) {
-        return $this->getEntityManager()
-            ->createQuery(
-                'SELECT p FROM AppBundle:Product p WHERE p.category = $id'
-            )
-            ->getResult();
+
+    public function moveProduct($product_sku, $old_parent_id, $new_parent_id)
+    {
+        $product = $this->findOneBy(['sku' => $product_sku]);
+        $old_category = $this->getEntityManager()->getRepository('AppBundle:Category')
+            ->find($old_parent_id);
+        $new_category = $this->getEntityManager()->getRepository('AppBundle:Category')
+            ->find($new_parent_id);
+
+        $old_category->removeProduct($product);
+        $new_category->addProduct($product);
+
+        $product->setCategory($new_category);
+
+        $this->getEntityManager()->persist($product);
+//        $this->getEntityManager()->merge($old_category);
+//        $this->getEntityManager()->merge($new_category);
+
+        $this->getEntityManager()->flush();
     }
 }

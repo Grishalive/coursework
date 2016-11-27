@@ -53,7 +53,7 @@ class Category
 
     /**
      *
-     * @OneToMany(targetEntity="Product", mappedBy="category")
+     * @OneToMany(targetEntity="Product", mappedBy="category", cascade={"persist", "merge", "remove"})
      *
      */
     private $products;

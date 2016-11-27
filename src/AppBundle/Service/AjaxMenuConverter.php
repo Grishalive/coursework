@@ -27,5 +27,30 @@ class AjaxMenuConverter
         $json_answer = json_encode($answer);
         return $json_answer;
     }
+    public function convertCategoriesProductsToJSON(array $categories, array $products){
+        $answer =[];
+        foreach ($categories as &$category) {
+            if ($category->getParent() === null) {
+                $parent_id = '#';
+            } else {
+                $parent_id = strval($category->getParent()->getID());
+            }
+            $answer[] = [
+                'id' => strval($category->getID()),
+                'parent' => $parent_id,
+                'text' => $category->getName(),
+            ];
+        }
+        foreach ($products as &$product) {
+            $answer[] = [
+                'id' => $product->getSKU(),
+                'parent' => $product->getCategory()->getID(),
+                'text' => $product->getName(),
+                'icon'=> 'glyphicon glyphicon-leaf'
+            ];
+        }
+        $json_answer = json_encode($answer);
+        return $json_answer;
+    }
 
 }
