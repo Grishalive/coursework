@@ -27,14 +27,14 @@ class Product
 
     /**
      * @var string
-     *
+     * @Assert\Length(min=2, max=254)
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
      * @var string
-     *
+     * @Assert\Length(min=2, max=255)
      * @ORM\Column(name="description", type="string", length=255)
      */
     private $description;

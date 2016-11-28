@@ -27,7 +27,7 @@ class Category
 
     /**
      * @var string
-     *
+     * @Assert\Length(min=2, max=30)
      * @ORM\Column(name="name", type="string", length=30, unique=true)
      */
     private $name;
