@@ -3,51 +3,49 @@
 {% block title %} Login {% endblock %}
 
 {% block body %}
-    <div class="container"><h1>Registration</h1></div>
-    <div class="container">
+    <div class="container" style="margin-left: 13%"><h1>Registration</h1></div>
+    <div class="container" style="width: 30%;">
         {{ form_start(form) }}
-        <div class="container">
-            <div style="float: left;">
+        <div>
+
+            <div class="form-group" >
                 {{ form_label(form.username) }}:
-                {{ form_widget(form.username) }}
+                {{ form_widget(form.username, { 'attr': {'class': 'form-control'} }) }}
             </div>
-            <div style="float: left; color: #761c19">
+            <div style="color: #761c19">
                 {{ form_errors(form.username) }}
             </div>
         </div>
-        <div class="container">
-            <div style="float: left;">
+        <div>
+            <div class="form-group">
                 {{ form_label(form.email) }}:
-                {{ form_widget(form.email) }}
+                {{ form_widget(form.email, { 'attr': {'class': 'form-control'} }) }}
             </div>
-            <div style="float: left; color: #761c19">
+            <div style=" color: #761c19">
                 {{ form_errors(form.email) }}
             </div>
         </div>
-        <div class="container">
-            <div style="float: left;">
+        <div>
+            <div class="form-group">
                 {{ form_label(form.plainPassword.first) }}:
-                {{ form_widget(form.plainPassword.first) }}
+                {{ form_widget(form.plainPassword.first, { 'attr': {'class': 'form-control'} }) }}
             </div>
-            <div style="float: left; color: #761c19">
+            <div style="color: #761c19">
                 {{ form_errors(form.plainPassword.first) }}
             </div>
         </div>
-        <div class="container">
-            <div style="float: left;">
+        <div >
+            <div class="form-group">
                 {{ form_label(form.plainPassword.second) }}:
-                {{ form_widget(form.plainPassword.second) }}
+                {{ form_widget(form.plainPassword.second, { 'attr': {'class': 'form-control'} }) }}
             </div>
-            <div style="float: left; color: #761c19">
-            {{ form_errors(form.plainPassword.second) }}
+            <div style="color: #761c19">
+                {{ form_errors(form.plainPassword.second) }}
             </div>
         </div>
-            {#{{ form_row(form.username) }}#}
-        {#{{ form_row(form.email) }}#}
-        {#{{ form_row(form.plainPassword.first) }}#}
-        {#{{ form_row(form.plainPassword.second) }}#}
-
-        <button type="submit">Register</button>
+        <div style="float: right; margin-top: 5%">
+            <button type="submit" class="btn btn-success" style="width: 200px; float: right">Register</button>
+        </div>
         {{ form_end(form) }}
     </div>
 {% endblock %}

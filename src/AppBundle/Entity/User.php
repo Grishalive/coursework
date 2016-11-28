@@ -23,7 +23,7 @@ class User implements UserInterface, \Serializable
     private $id;
 
     /**
-     * @Assert\Length(max=25, min=8)
+     * @Assert\Length(max=25, min=3)
      * @ORM\Column(type="string", length=25)
      */
     private $username;
