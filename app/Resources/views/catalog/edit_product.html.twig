@@ -30,6 +30,7 @@
                 {{ form_widget(form.SKU, { 'attr': {'class': 'form-control'} }) }}
             </div>
             <div style="float: left; color: #761c19">
+                {{ form_errors(form) }}
                 {{ form_errors(form.SKU) }}
             </div>
         </div>

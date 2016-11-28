@@ -61,9 +61,9 @@ class Product
     private $isActive;
 
     /**
-     * @var integer
-     * @Assert\Length(min=10)
-     * @ORM\Column(name="SKU", type="bigint", unique=true)
+     * @var string
+     * @Assert\Length(min=10, max=15)
+     * @ORM\Column(name="SKU", type="string", unique=true)
      */
     private $sku;
 
@@ -228,7 +228,7 @@ class Product
     /**
      * Set SKU
      *
-     * @param int $sku
+     * @param string $sku
      *
      * @return Product
      */
@@ -242,7 +242,7 @@ class Product
     /**
      * Get SKU
      *
-     * @return int
+     * @return string
      */
     public function getSKU()
     {

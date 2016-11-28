@@ -87,8 +87,8 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface
         $category_10->setParent($category_8);
 
         $user_1 = new User();
-        $user_1->setUsername('grisha');
-        $user_1->setEmail('g@mail.ru');
+        $user_1->setUsername('Mary');
+        $user_1->setEmail('m@mail.ru');
         $user_1->setPlainPassword('11111111');
         $user_1->setIsActive(true);
         $encoder = $this->container->get('security.password_encoder');
@@ -96,7 +96,7 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface
         $user_1->setPassword($password);
 
         $user_2 = new User();
-        $user_2->setUsername('vita');
+        $user_2->setUsername('Vita');
         $user_2->setEmail('v@mail.ru');
         $user_2->setPlainPassword('11111111');
         $user_2->setIsActive(true);
@@ -106,8 +106,8 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface
         $user_2->setPassword($password);
 
         $user_3 = new User();
-        $user_3->setUsername('masha');
-        $user_3->setEmail('m@mail.ru');
+        $user_3->setUsername('Grisha');
+        $user_3->setEmail('g@mail.ru');
         $user_3->setPlainPassword('11111111');
         $user_3->setIsActive(true);
         $user_3->addRoles('ROLE_ADMIN');
@@ -117,19 +117,19 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface
 
         $product_1 = new Product();
         $product_1->setName('Yamaha 2014 MX245');
-        $product_1->setSKU('2345234');
+        $product_1->setSKU('234522312334');
         $product_1->setDescription('Хороший мот');
         $product_1->setCategory($category_7);
 
         $product_2 = new Product();
         $product_2->setName('Audi 80 2016 mx');
-        $product_2->setSKU('2345231234');
+        $product_2->setSKU('234523123234');
         $product_2->setDescription('Mega car');
         $product_2->setCategory($category_3);
 
         $product_3 = new Product();
         $product_3->setName('Audi 100 2015 mx');
-        $product_3->setSKU('23423454');
+        $product_3->setSKU('234234523234');
         $product_3->setDescription('Mega super');
         $product_3->setCategory($category_3);
 
@@ -157,20 +157,76 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface
         $product_7->setDescription('Fast moto');
         $product_7->setCategory($category_7);
 
-        for ($i = 0; $i < 10; $i++) {
-            $product = new Product();
-            $product->setName('iPhone '.$i);
-            $product->setSKU('98098324'.$i);
-            $product->setDescription('Cool iPhone '.$i);
-            $product->setCategory($category_9);
-            $manager->persist($product);
+        for ($i = 0; $i < 5; $i++) {
 
-            $product_ = new Product();
-            $product_->setName('Samsung S'.$i);
-            $product_->setSKU('23098234983'.$i);
-            $product_->setDescription('Amazing phone '.$i);
-            $product_->setCategory($category_10);
-            $manager->persist($product_);
+            $product1 = new Product();
+            $product1->setName('Peugeot 80'.$i.' HDI');
+            $product1->setSKU('2323983475314'.$i);
+            $product1->setDescription('Big car '.$i);
+            $product1->setCategory($category_2);
+            $product1->setImage('035066bba210802a265cda0dbc6907df.jpeg');
+            $manager->persist($product1);
+
+            $product2 = new Product();
+            $product2->setName('iPhone '.$i);
+            $product2->setSKU('98092328324'.$i);
+            $product2->setDescription('Cool iPhone '.$i);
+            $product2->setCategory($category_9);
+            $product2->setImage('459e4d8fb6065864084617547d5d263e.jpeg');
+            $manager->persist($product2);
+
+            $product3 = new Product();
+            $product3->setName('Samsung S'.$i);
+            $product3->setSKU('230982124983'.$i);
+            $product3->setDescription('Amazing phone '.$i);
+            $product3->setCategory($category_10);
+            $product3->setImage('4c9bea2248354ed129bbd84b861a832b.jpeg');
+            $manager->persist($product3);
+
+            $product5 = new Product();
+            $product5->setName('Peugeot 40'.$i.' 2.0');
+            $product5->setSKU('232283235314'.$i);
+            $product5->setDescription('Big car '.$i);
+            $product5->setCategory($category_2);
+            $product5->setImage('1326464e73a3ddc717a9509a7ba4c46b.jpeg');
+            $manager->persist($product5);
+
+            $product6 = new Product();
+            $product6->setName('iPhone C'.$i);
+            $product6->setSKU('98012328324'.$i);
+            $product6->setDescription('Cool cheap iPhone '.$i);
+            $product6->setCategory($category_9);
+            $product6->setImage('2292cbfe804bc4083cccd059e269b51d.jpeg');
+            $manager->persist($product6);
+
+            $product7 = new Product();
+            $product7->setName('Samsung R'.$i);
+            $product7->setSKU('230982312983'.$i);
+            $product7->setDescription('Amazing new phone '.$i);
+            $product7->setCategory($category_10);
+            $product7->setImage('6ff35e9c70d8d0b3d29da3a59e980e48.jpeg');
+            $manager->persist($product7);
+
+            $user1 = new User();
+            $user1->setUsername('Mary '.$i);
+            $user1->setEmail('m'.$i.'@mail.ru');
+            $user1->setPlainPassword('11111111');
+            $user1->setIsActive(true);
+            $encoder = $this->container->get('security.password_encoder');
+            $password = $encoder->encodePassword($user1, $user1->getPlainPassword());
+            $user1->setPassword($password);
+            $manager->persist($user1);
+
+            $user2 = new User();
+            $user2->setUsername('Vita '.$i);
+            $user2->setEmail('v'.$i.'@mail.ru');
+            $user2->setPlainPassword('11111111');
+            $user2->setIsActive(true);
+            $user2->addRoles('ROLE_MANAGER');
+            $encoder = $this->container->get('security.password_encoder');
+            $password = $encoder->encodePassword($user2, $user2->getPlainPassword());
+            $user2->setPassword($password);
+            $manager->persist($user2);
         }
 
         $manager->persist($category_1);

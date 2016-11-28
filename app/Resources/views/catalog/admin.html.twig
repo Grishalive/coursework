@@ -11,9 +11,23 @@
             {% if pagination is defined %}
                 <div>
                     {% for article in pagination %}
-                        <div {% if loop.index is odd %}class="color"{% endif %} style="border: 1px solid #afd9ee; margin-bottom: 2px; padding: 10px 20px; padding-right: 300px">
-                            <h4><a href="#">{{ article.username }}</a></h4>
-                            <h5>{{ article.email }}</h5>
+                        <div {% if loop.index is odd %}class="color"{% endif %} style="border: 1px solid #afd9ee; margin-bottom: 2px; padding: 10px 20px; padding-right: 300px; height: 90px">
+                            <div style="float: left">
+                                <h4><a href="#">{{ article.username }}</a></h4>
+                                <h5>{{ article.email }}</h5>
+                                </div>
+                            <div style="float: left; padding-left: 70px; padding-top: 10px">
+                                {% if article.roles is defined %}
+                                    Role:
+                                    {% if 'ROLE_ADMIN' in article.roles %}
+                                        <a> Admin</a>
+                                    {% elseif 'ROLE_MANAGER' in article.roles %}
+                                        <a> Manager</a>
+                                    {% elseif 'ROLE_USER' in article.roles %}
+                                        <a> User</a>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
                         </div>
                     {% endfor %}
                 </div>
