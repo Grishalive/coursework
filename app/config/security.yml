@@ -29,6 +29,7 @@ security:
                 always_use_default_target_path: true
                 default_target_path: /catalog
     access_control:
+        - { path: ^/catalog$, role: ROLE_USER }
         - { path: ^/catalog/product/.*, role: ROLE_USER }
         - { path: ^/catalog/.*, role: ROLE_MANAGER }
         - { path: ^/admin.*, role: ROLE_ADMIN }
