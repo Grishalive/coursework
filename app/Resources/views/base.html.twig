@@ -57,7 +57,7 @@
                             {% endif %}
                             {% if 'ROLE_ADMIN' in app.user.roles %}
                                 <li><a href="{{ path('catalog_edit') }}">EditCatalog</a></li>
-                                <li><a href="{{ path('add_product') }}">AdminPanel</a></li>
+                                <li><a href="{{ path('admin') }}">AdminPanel</a></li>
                             {% endif %}
                             {% if 'ROLE_USER' in app.user.roles %}
                                 <li class="dropdown">

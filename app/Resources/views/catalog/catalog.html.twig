@@ -12,13 +12,26 @@
         <div id="categories" style="float: left" >
             {#<img src="{{asset('img/loading.gif')}}">#}
         </div>
-        <div id="goods" class="column" style="float: left; margin-left: 15%">
+        <div id="goods"  style="float: left; margin-left: 15%">
             {% if pagination is defined %}
-            <div>
+            <div style="float: left">
                 {% for article in pagination %}
-                    <div {% if loop.index is odd %}class="color"{% endif %} style="border: 1px solid #afd9ee; margin-bottom: 2px; padding: 10px 20px; padding-right: 300px">
-                        <h4><a href="{{ path('show_product', {'id': article.id}) }}">{{ article.name }}</a></h4>
-                        <h5>{{ article.description }}</h5>
+                    <div {% if loop.index is odd %}class="color"{% endif %} style="border: 1px solid #afd9ee; margin-bottom: 2px; padding: 10px 20px; padding-right: 300px; height: 90px">
+                        {% if article.image is not null %}
+                            <div style="float: left">
+                                <img src="{{ asset('uploads/images/' ~ article.image) }}"
+                                     style="height: 70px; "/>
+                            </div>
+                            <div style="float: left; margin-left: 20px;">
+                                <h4><a href="{{ path('show_product', {'id': article.id}) }}">{{ article.name }}</a></h4>
+                                <h5>{{ article.description }}</h5>
+                            </div>
+                        {% else %}
+                        <div style="float: left;">
+                            <h4><a href="{{ path('show_product', {'id': article.id}) }}">{{ article.name }}</a></h4>
+                            <h5>{{ article.description }}</h5>
+                        </div>
+                        {% endif %}
                     </div>
                 {% endfor %}
             </div>

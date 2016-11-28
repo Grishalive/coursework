@@ -23,13 +23,14 @@ class User implements UserInterface, \Serializable
     private $id;
 
     /**
+     * @Assert\Length(max=25, min=8)
      * @ORM\Column(type="string", length=25)
      */
     private $username;
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Length(max=4096)
+     * @Assert\Length(max=4096, min=8)
      */
     private $plainPassword;
 
@@ -43,6 +44,7 @@ class User implements UserInterface, \Serializable
 
 
     /**
+     * @Assert\Length(max=55, min=5)
      * @ORM\Column(type="string", length=60, unique=true)
      */
     private $email;

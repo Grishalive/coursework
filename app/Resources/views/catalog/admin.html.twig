@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} AdminPanel {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>All users</h1>
+    </div>
+    <div class="container">
+        <div id="goods" class="column" style="float: left; margin-left: 15%">
+            {% if pagination is defined %}
+                <div>
+                    {% for article in pagination %}
+                        <div {% if loop.index is odd %}class="color"{% endif %} style="border: 1px solid #afd9ee; margin-bottom: 2px; padding: 10px 20px; padding-right: 300px">
+                            <h4><a href="#">{{ article.username }}</a></h4>
+                            <h5>{{ article.email }}</h5>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="navigation">
+                    {{ knp_pagination_render(pagination) }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

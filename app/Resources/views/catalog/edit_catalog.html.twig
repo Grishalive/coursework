@@ -13,9 +13,10 @@
         <div id="categories"  >
             {#<img src="{{asset('img/loading.gif')}}">#}
         </div>
-        <div id="edit_button">
-        </div>
+
         <div style="float:left; margin-top: 1%">
+            <div id="edit_button" style="margin-bottom: 2px">
+            </div>
             <a class="btn btn-success btn-df" href="{{ path('add_category') }}">Add New Category</a>
             <a class="btn btn-info btn-df" href="{{ path('add_product') }}">Add New Product</a>
         </div>

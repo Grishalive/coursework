@@ -4,8 +4,16 @@
 
 {% block body %}
     <div class="container">
-        <h1>{{ product.name }}</h1>
-        <h2><span style="color: #00AA88">Description:</span> {{ product.description }}</h2>
-        <h3><span style="color: #00AA88">SKU:</span> {{ product.sku }}</h3>
+        <div style="float: left">
+            <h1>{{ product.name }}</h1>
+            <h2><span style="color: #00AA88">Description:</span> {{ product.description }}</h2>
+            <h3><span style="color: #00AA88">SKU:</span> {{ product.sku }}</h3>
+        </div>
+        {% if product.image is not null %}
+            <div style="float: left; margin-left: 10%; margin-top: 5%">
+                <img src="{{ asset('uploads/images/' ~ product.image) }}"
+                     style="height: 300px;"/>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}

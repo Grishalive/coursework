@@ -4,11 +4,67 @@
 
 {% block body %}
     <div class="container"><h1>{{ title }}</h1></div>
-    <div class="container">
+    <div class="container" style="width: 40%; float: left; padding-left: 8%">
         {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button type="submit">{{ button_text }}</button>
+        <div>
+            <div class="form-group">
+                {{ form_label(form.name) }}:
+                {{ form_widget(form.name, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div style="float: left; color: #761c19">
+                {{ form_errors(form.name) }}
+            </div>
+        </div>
+        <div >
+            <div class="form-group">
+                {{ form_label(form.description) }}:
+                {{ form_widget(form.description, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div style="float: left; color: #761c19">
+                {{ form_errors(form.description) }}
+            </div>
+        </div>
+        <div>
+            <div class="form-group">
+                {{ form_label(form.SKU) }}:
+                {{ form_widget(form.SKU, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div style="float: left; color: #761c19">
+                {{ form_errors(form.SKU) }}
+            </div>
+        </div>
+        <div>
+            <div style="float: left;" >
+                {{ form_label(form.image) }}:
+                {{ form_widget(form.image, { 'attr': {'class': 'form-control btn btn-primary'}}) }}
+            </div>
+            <div style="float: left; color: #761c19">
+                {{ form_errors(form.image) }}
+            </div>
+        </div>
+        <div>
+            <div style="float: right;">
+                {{ form_label(form.isActive) }}:
+                {{ form_widget(form.isActive, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div style="float: left; color: #761c19">
+                {{ form_errors(form.isActive) }}
+            </div>
+        </div>
+        <div class="container" style="float: right; margin-top: 10%">
+            <button type="submit" class="btn btn-success" style="width: 200px; float: right">{{ button_text }}</button>
+        </div>
         {{ form_end(form) }}
+    </div>
+    <div class="container" style="width: 30%; float: left; margin: 0 10%">
+            {% if image_path is defined and image_path is not null %}
+                <a style="display: block" href="{{ asset('uploads/images/' ~ image_path) }}">
+                    <img  src="{{ asset('uploads/images/' ~ image_path) }}"
+                          style="height: 250px;"/>
+                </a>
+            {% else %}
+                <h3>There is no picture</h3>
+            {% endif %}
     </div>
 
 {% endblock %}

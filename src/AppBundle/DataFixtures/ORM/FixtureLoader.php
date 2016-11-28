@@ -89,7 +89,7 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface
         $user_1 = new User();
         $user_1->setUsername('grisha');
         $user_1->setEmail('g@mail.ru');
-        $user_1->setPlainPassword('1111');
+        $user_1->setPlainPassword('11111111');
         $user_1->setIsActive(true);
         $encoder = $this->container->get('security.password_encoder');
         $password = $encoder->encodePassword($user_1, $user_1->getPlainPassword());
@@ -98,7 +98,7 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface
         $user_2 = new User();
         $user_2->setUsername('vita');
         $user_2->setEmail('v@mail.ru');
-        $user_2->setPlainPassword('1111');
+        $user_2->setPlainPassword('11111111');
         $user_2->setIsActive(true);
         $user_2->addRoles('ROLE_MANAGER');
         $encoder = $this->container->get('security.password_encoder');
@@ -108,7 +108,7 @@ class FixtureLoader implements FixtureInterface, ContainerAwareInterface
         $user_3 = new User();
         $user_3->setUsername('masha');
         $user_3->setEmail('m@mail.ru');
-        $user_3->setPlainPassword('1111');
+        $user_3->setPlainPassword('11111111');
         $user_3->setIsActive(true);
         $user_3->addRoles('ROLE_ADMIN');
         $encoder = $this->container->get('security.password_encoder');

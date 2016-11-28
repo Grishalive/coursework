@@ -6,6 +6,7 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\Product;
 use AppBundle\Form\CategoryType;
 use AppBundle\Form\ProductType;
+use Symfony\Component\HttpFoundation\File\File;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -111,9 +112,26 @@ class CatalogController extends Controller
             if (!preg_match('/^[1-9][0-9]*$/', $form->getData()->getSKU())) {
                 $form->get('SKU')->addError(new FormError('SKU must be numeric!'));
                 return $this->render('catalog/edit_product.html.twig', ['form' => $form->createView(),
-                    'title' => 'Edit Product',
-                    'button_text' => 'Edit',
+                    'title' => 'Add Product',
+                    'button_text' => 'Add',
                 ]);
+            }
+            // $file stores the uploaded PDF file
+            $file = $product->getImage();
+            if ($file) {
+                // Generate a unique name for the file before saving it
+                $fileName = md5(uniqid()).'.'.$file->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                $file->move(
+                    $this->getParameter('images_directory'),
+                    $fileName
+                );
+
+                // Update the 'brochure' property to store the PDF file name
+                // instead of its contents
+                $product->setImage($fileName);
+
             }
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
@@ -155,6 +173,12 @@ class CatalogController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $product = $em->getRepository('AppBundle:Product')->findOneBy(['sku' => $id]);
+        $image_path = $product->getImage();
+        if($image_path) {
+            $product->setImage(
+                new File($this->getParameter('images_directory') . '/' . $product->getImage())
+            );
+        }
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -163,7 +187,24 @@ class CatalogController extends Controller
                 return $this->render('catalog/edit_product.html.twig', ['form' => $form->createView(),
                     'title' => 'Edit Product',
                     'button_text' => 'Edit',
+                    'image_path' => $image_path,
                 ]);
+            }
+            // $file stores the uploaded PDF file
+            $file = $product->getImage();
+            if ($file) {
+                // Generate a unique name for the file before saving it
+                $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                $file->move(
+                    $this->getParameter('images_directory'),
+                    $fileName
+                );
+
+                // Update the 'brochure' property to store the PDF file name
+                // instead of its contents
+                $product->setImage($fileName);
             }
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
@@ -174,6 +215,7 @@ class CatalogController extends Controller
         return $this->render('catalog/edit_product.html.twig', ['form' => $form->createView(),
             'title' => 'Edit Product',
             'button_text' => 'Edit',
+            'image_path' => $image_path,
         ]);
     }
 
@@ -196,5 +238,22 @@ class CatalogController extends Controller
             'title' => 'Edit Category',
             'button_text' => 'Edit'
         ]);
+    }
+
+    /**
+     * @Route("/admin", name="admin")
+     */
+    public function adminAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $users = $em->getRepository('AppBundle:User')->findAllOrderedByID();
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $users, /* query NOT categoriesToJSON */
+            $request->query->getInt('page', 1)/*page number*/,
+            4/*limit per page*/
+        );
+        return $this->render(":catalog:admin.html.twig",['pagination' => $pagination,]);
+
     }
 }

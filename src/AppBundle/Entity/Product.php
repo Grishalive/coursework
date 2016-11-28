@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -61,7 +62,7 @@ class Product
 
     /**
      * @var integer
-     *
+     * @Assert\Length(min=10)
      * @ORM\Column(name="SKU", type="bigint", unique=true)
      */
     private $sku;
@@ -78,6 +79,12 @@ class Product
      */
     private $category;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     *
+     * @Assert\File(mimeTypes={ "image/*" })
+     */
+    private $image;
 
 
     public function __construct()
@@ -291,5 +298,16 @@ class Product
         return $this;
     }
 
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
 
 }

@@ -13,6 +13,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository implements UserLoaderInterface
 {
+
+    public function findAllOrderedByID()
+    {
+        return $this->getEntityManager()
+            ->createQuery(
+                'SELECT p FROM AppBundle:User p ORDER BY p.id ASC'
+            )
+            ->getResult();
+    }
+
     public function loadUserByUsername($username)
     {
         return $this->createQueryBuilder('u')
